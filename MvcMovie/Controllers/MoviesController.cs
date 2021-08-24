@@ -24,7 +24,8 @@ namespace MvcMovie.Models
             return View(await _context.Movie.ToListAsync());
         }
 
-        // GET: Movies/Details/5
+        // GET: Movies/Details/5 ??
+        // why 5 tho??
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
