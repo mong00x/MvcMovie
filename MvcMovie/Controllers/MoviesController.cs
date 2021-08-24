@@ -50,10 +50,16 @@ namespace MvcMovie.Models
         }
 
         // POST: Movies/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        //The HttpPost attribute specifies that this Edit method can be invoked only for POST requests.
+        //You could apply the [HttpGet] attribute to the first edit method,
+        //but that's not necessary because [HttpGet] is the DEFAULT.
         [ValidateAntiForgeryToken]
+        //The ValidateAntiForgeryToken attribute is used to prevent forgery of a request and is paired up with
+        //an anti-forgery(Cross-Site Request Forgery XSRF/CSRF) token generated in the edit view file(Views/Movies/Edit.cshtml).
+        //The edit view file generates the anti-forgery token with the Form Tag Helper: <form asp-action="Edit">
+
         public async Task<IActionResult> Create([Bind("Id,Title,ReleaseDate,Genre,Price")] Movie movie)
         {
             if (ModelState.IsValid)
@@ -87,6 +93,14 @@ namespace MvcMovie.Models
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ReleaseDate,Genre,Price")] Movie movie)
+        //The[Bind] attribute is one way to protect against over-posting.
+        //You should only include properties in the[Bind] attribute that you want to change.
+        //For more information, see Protect your controller from over-posting.
+        //ViewModels provide an alternative approach to prevent over-posting.
+
+        //After each property is successfully Bound, model validation occurs for that property.
+        //The record of what data is bound to the model, and any binding or validation errors,
+        //is stored in ControllerBase.ModelState or PageModel.ModelState. (see below ModelState.IsValid)
         {
             if (id != movie.Id)
             {
